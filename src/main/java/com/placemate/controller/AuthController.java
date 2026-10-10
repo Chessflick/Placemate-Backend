@@ -1,0 +1,26 @@
+package com.placemate.controller;
+
+import com.placemate.dto.AuthDTO;
+import com.placemate.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
+public class AuthController {
+
+    private final AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthDTO.AuthResponse> register(@RequestBody AuthDTO.RegisterRequest request) {
+        return ResponseEntity.ok(authService.registerStudent(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthDTO.AuthResponse> login(@RequestBody AuthDTO.LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
+    }
+}
